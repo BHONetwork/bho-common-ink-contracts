@@ -1,0 +1,84 @@
+diff --git a/node_modules/@redspot/chai/matchers/emit.js b/node_modules/@redspot/chai/matchers/emit.js
+index 7a402eb..eafc63c 100644
+--- a/node_modules/@redspot/chai/matchers/emit.js
++++ b/node_modules/@redspot/chai/matchers/emit.js
+@@ -5,7 +5,13 @@ const util_1 = require("@polkadot/util");
+ const util_crypto_1 = require("@polkadot/util-crypto");
+ function supportEmit(Assertion) {
+     Assertion.addMethod('emit', function (contract, eventName) {
+-        const promise = this._obj;
++        let promise;
++        if ('promise' in this) {
++            promise = this.promise;
++        }
++        else {
++            promise = this._obj;
++        }
+         const derivedPromise = promise.then((response) => {
+             var _a, _b;
+             const abiEvent = contract.abi.events.find((x) => x.identifier.toString().toLowerCase() === eventName.toLowerCase());
+@@ -17,7 +23,7 @@ function supportEmit(Assertion) {
+                     " The event wasn't emitted because it doesn't" +
+                     " exist in the contract. Please make sure you've compiled" +
+                     ' its latest version before running the test.', eventName, '');
+-                return;
++                return response;
+             }
+             const contractEvents = ((_b = (_a = response === null || response === void 0 ? void 0 : response.result) === null || _a === void 0 ? void 0 : _a.filterRecords('contracts', ['ContractEmitted', 'ContractExecution'])) === null || _b === void 0 ? void 0 : _b.filter((event) => {
+                 const accountId = event.event.data[0];
+@@ -35,13 +41,17 @@ function supportEmit(Assertion) {
+                 return decoded;
+             })
+                 .filter(({ name }) => name.toLowerCase() === eventName.toLowerCase());
++
++            this.eventName = eventName;
++
+             this.assert(this.logs.length > 0, `Expected event "${eventName}" to be emitted, but it wasn't`, `Expected event "${eventName}" NOT to be emitted, but it was`);
++            return response;
+         });
+         this.then = derivedPromise.then.bind(derivedPromise);
+         this.catch = derivedPromise.catch.bind(derivedPromise);
+         this.promise = derivedPromise;
+         this.contract = contract;
+-        this.eventName = eventName;
++
+         return this;
+     });
+     const assertArgsArraysEqual = (context, expectedArgs, log) => {
+@@ -49,7 +59,7 @@ function supportEmit(Assertion) {
+         context.assert(actualArgs.length === expectedArgs.length, `Expected "${context.eventName}" event to have ${expectedArgs.length} argument(s), ` +
+             `but it has ${actualArgs.length}`, 'Do not combine .not. with .withArgs()', expectedArgs.length, actualArgs.length);
+         for (let index = 0; index < expectedArgs.length; index++) {
+-            if (expectedArgs[index].length !== undefined &&
++            if (expectedArgs[index] != null && expectedArgs[index].length !== undefined &&
+                 typeof expectedArgs[index] !== 'string') {
+                 for (let j = 0; j < expectedArgs[index].length; j++) {
+                     new Assertion(actualArgs[index][j]).equal(expectedArgs[index][j]);
+@@ -63,21 +73,24 @@ function supportEmit(Assertion) {
+     const tryAssertArgsArraysEqual = (context, expectedArgs, logs) => {
+         if (logs.length === 1)
+             return assertArgsArraysEqual(context, expectedArgs, logs[0]);
+-        for (const index of logs) {
++        for (const index in logs) {
+             try {
+                 assertArgsArraysEqual(context, expectedArgs, logs[index]);
+                 return;
+             }
+-            catch { }
++            catch (err) {}
+         }
+         context.assert(false, `Specified args not emitted in any of ${context.logs.length} emitted "${context.eventName}" events`, 'Do not combine .not. with .withArgs()');
+     };
++
+     Assertion.addMethod('withArgs', function (...expectedArgs) {
+-        const derivedPromise = this.promise.then(() => {
++        const derivedPromise = this.promise.then((response) => {
+             tryAssertArgsArraysEqual(this, expectedArgs, this.logs);
++            return response;
+         });
+         this.then = derivedPromise.then.bind(derivedPromise);
+         this.catch = derivedPromise.catch.bind(derivedPromise);
++        this.promise = derivedPromise;
+         return this;
+     });
+ }

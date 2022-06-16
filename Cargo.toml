@@ -1,0 +1,11 @@
+[workspace]
+members = ["contracts/**"]
+
+[profile.release]
+panic = "abort"
+lto = true
+
+[profile.dev]
+panic = "abort"
+lto = true
+overflow-checks = false

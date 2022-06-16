@@ -1,0 +1,36 @@
+{
+  "name": "bho-common-ink-contracts",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=14.x"
+  },
+  "dependencies": {
+    "@redspot/chai": "0.13.6",
+    "@redspot/decimals": "0.13.6",
+    "@redspot/explorer": "0.13.6",
+    "@redspot/gas-reporter": "0.13.6",
+    "@redspot/known-types": "0.13.6",
+    "@redspot/patract": "0.13.6",
+    "@redspot/watcher": "0.13.6",
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.3",
+    "chai": "^4.2.0",
+    "redspot": "0.13.6",
+    "typescript": "^4.3.2"
+  },
+  "module": "true",
+  "scripts": {
+    "build": "yarn redspot compile",
+    "test": "yarn redspot test --no-compile",
+    "explorer": "yarn redspot explorer"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.7.1"
+  }
+}

@@ -1,0 +1,13 @@
+diff --git a/node_modules/@redspot/gas-reporter/reporter/Watcher.js b/node_modules/@redspot/gas-reporter/reporter/Watcher.js
+index 80812fb..3fcba27 100644
+--- a/node_modules/@redspot/gas-reporter/reporter/Watcher.js
++++ b/node_modules/@redspot/gas-reporter/reporter/Watcher.js
+@@ -36,7 +36,7 @@ class TransactionWatcher {
+             abiData.spec.messages.forEach((messages) => {
+                 result[messages.selector] = {
+                     // name changed to label between V1 and V2
+-                    message: messages.name ? messages.name[0] : messages.label[0],
++                    message: messages.name ? messages.name : messages.label,
+                     contract: data.contract.name
+                 };
+             });
