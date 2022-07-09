@@ -9,11 +9,6 @@ pub mod bho_psp34 {
     use ink_storage::traits::SpreadAllocate;
     use openbrush::contracts::psp34::extensions::{burnable::*, metadata::*, mintable::*};
 
-    pub trait BPSP34Internal {
-        /// Emits transfer event.
-        fn _b_emit_transfer_event(&self, _from: Option<AccountId>, _to: Option<AccountId>, _id: Id, _metadata: Vec<u8>);
-    }
-
     #[derive(Default, SpreadAllocate, PSP34Storage, PSP34MetadataStorage)]
     #[ink(storage)]
     pub struct BPSP34 {
