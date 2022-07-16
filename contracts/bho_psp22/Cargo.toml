@@ -1,21 +1,22 @@
 [package]
-name = "psp22"
+name = "bho_psp22"
 version = "1.0.0"
 authors = ["BHONetwork <daniel.lam@bho.network>"]
 edition = "2021"
 
 [dependencies]
-ink_primitives = { version = "~3.2.0", default-features = false }
-ink_metadata = { version = "~3.2.0", default-features = false, features = ["derive"], optional = true }
-ink_env = { version = "~3.2.0", default-features = false }
-ink_storage = { version = "~3.2.0", default-features = false }
-ink_lang = { version = "~3.2.0", default-features = false }
-ink_prelude = { version = "~3.2.0", default-features = false }
+ink_primitives = { version = "~3.3.0", default-features = false }
+ink_metadata = { version = "~3.3.0", default-features = false, features = ["derive"], optional = true }
+ink_env = { version = "~3.3.0", default-features = false }
+ink_storage = { version = "~3.3.0", default-features = false }
+ink_lang = { version = "~3.3.0", default-features = false }
+ink_prelude = { version = "~3.3.0", default-features = false }
+ink_engine = { version = "~3.3.0", default-features = false, optional = true }
 
 scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
 scale-info = { version = "2", default-features = false, features = ["derive"], optional = true }
 
-openbrush = { version = "2", default-features = false, features = ["psp22"] }
+openbrush = { version = "2.1", default-features = false, features = ["psp22"] }
 
 [lib]
 name = "psp22"
@@ -34,8 +35,8 @@ std = [
     "scale/std",
     "scale-info",
     "scale-info/std",
-    "ink_prelude/std",
 
+    # These dependencies
     "openbrush/std",
 ]
 
