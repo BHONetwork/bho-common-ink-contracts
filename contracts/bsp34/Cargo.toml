@@ -1,5 +1,5 @@
 [package]
-name = "bho_psp34"
+name = "bsp34_contract"
 version = "1.0.0"
 authors = ["BHONetwork <@bho.network>"]
 edition = "2021"
@@ -18,9 +18,10 @@ scale-info = { version = "2", default-features = false, features = ["derive"], o
 
 # These dependencies
 openbrush = { version = "2.1", default-features = false, features = ["psp34"] }
+bho_common = { default-features = false, path = "../../common" }
 
 [lib]
-name = "bho_psp34"
+name = "bsp34_contract"
 path = "lib.rs"
 crate-type = [
     # Used for normal contract Wasm blobs.
@@ -42,6 +43,7 @@ std = [
 
     # These dependencies
     "openbrush/std",
+    "bho_common/std",
 ]
 ink-as-dependency = []
 

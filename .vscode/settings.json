@@ -1,0 +1,4 @@
+{
+  "rust-analyzer.cargo.features": "all",
+  "rust-analyzer.linkedProjects": ["Cargo.toml", "contracts/bsp22/Cargo.toml", "contracts/bsp34/Cargo.toml"]
+}

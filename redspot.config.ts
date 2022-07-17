@@ -4,7 +4,7 @@ import "@redspot/chai";
 import "@redspot/gas-reporter";
 import "@redspot/known-types";
 import "@redspot/watcher";
-import "@redspot/explorer"
+import "@redspot/explorer";
 import "@redspot/decimals";
 
 export default {

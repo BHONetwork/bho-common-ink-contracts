@@ -3,7 +3,8 @@
 extern crate alloc;
 
 #[openbrush::contract]
-pub mod bho_psp34 {
+pub mod bsp34_contract {
+    use bho_common::traits::bsp34::extensions::mintable::*;
     use ink_lang::codegen::{
         EmitEvent,
         Env,
@@ -13,12 +14,11 @@ pub mod bho_psp34 {
     use openbrush::contracts::psp34::extensions::{
         burnable::*,
         metadata::*,
-        mintable::*,
     };
 
     #[derive(Default, SpreadAllocate, PSP34Storage, PSP34MetadataStorage)]
     #[ink(storage)]
-    pub struct BPSP34 {
+    pub struct BSP34Contract {
         #[PSP34StorageField]
         psp34: PSP34Data,
         next_id: u128,
@@ -57,15 +57,11 @@ pub mod bho_psp34 {
         data: Vec<u8>,
     }
 
-    impl PSP34 for BPSP34 {}
+    impl PSP34 for BSP34Contract {}
 
-    impl PSP34Metadata for BPSP34 {}
+    impl PSP34Metadata for BSP34Contract {}
 
-    impl PSP34Mintable for BPSP34 {}
-
-    impl PSP34Burnable for BPSP34 {}
-
-    impl PSP34Internal for BPSP34 {
+    impl PSP34Internal for BSP34Contract {
         fn _emit_transfer_event(&self, from: Option<AccountId>, to: Option<AccountId>, id: Id) {
             self.env().emit_event(Transfer { from, to, id })
         }
@@ -84,7 +80,20 @@ pub mod bho_psp34 {
         }
     }
 
-    impl BPSP34 {
+    impl BSP34Mintable for BSP34Contract {
+        #[ink(message)]
+        fn mint(&mut self, account: AccountId, attrs: Vec<(Vec<u8>, Vec<u8>)>) -> Result<Id, PSP34Error> {
+            let id: Id = Id::U128(self.next_id);
+            self._mint_to(account, id.clone())?;
+            for (key, data) in attrs {
+                self._set_attribute(id.clone(), key, data);
+            }
+            self.next_id += 1;
+            Ok(id)
+        }
+    }
+
+    impl BSP34Contract {
         #[ink(constructor)]
         pub fn new(attrs: Vec<(Vec<u8>, Vec<u8>)>) -> Self {
             ink_lang::codegen::initialize_contract(|instance: &mut Self| {
@@ -93,17 +102,6 @@ pub mod bho_psp34 {
                     instance._set_attribute(collection_id.clone(), key, data);
                 }
             })
-        }
-
-        #[ink(message)]
-        pub fn mint(&mut self, account: AccountId, attrs: Vec<(Vec<u8>, Vec<u8>)>) -> Result<(), PSP34Error> {
-            let id: Id = Id::U128(self.next_id);
-            self._mint_to(account, id.clone())?;
-            for (key, data) in attrs {
-                self._set_attribute(id.clone(), key, data);
-            }
-            self.next_id += 1;
-            Ok(())
         }
     }
 }

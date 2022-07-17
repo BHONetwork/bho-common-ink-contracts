@@ -2,7 +2,7 @@
 #![feature(min_specialization)]
 
 #[openbrush::contract]
-mod bho_psp22 {
+pub mod bsp22_contract {
     use ink_prelude::string::String;
     use ink_storage::traits::SpreadAllocate;
     use openbrush::contracts::psp22::{
@@ -12,16 +12,16 @@ mod bho_psp22 {
 
     #[ink(storage)]
     #[derive(Default, SpreadAllocate, PSP22Storage, PSP22MetadataStorage)]
-    pub struct BPSP22 {
+    pub struct BSP22Contract {
         #[PSP22StorageField]
         psp22: PSP22Data,
         #[PSP22MetadataStorageField]
         psp22_metadata: PSP22MetadataData,
     }
 
-    impl PSP22 for BPSP22 {}
+    impl PSP22 for BSP22Contract {}
 
-    impl BPSP22 {
+    impl BSP22Contract {
         #[ink(constructor)]
         pub fn new(name: Option<String>, symbol: Option<String>, decimals: u8, initial_supply: Balance) -> Self {
             ink_lang::utils::initialize_contract(|instance: &mut Self| {
