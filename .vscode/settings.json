@@ -1,3 +1,0 @@
-{
-  "rust-analyzer.linkedProjects": ["contracts/bho_psp22/Cargo.toml", "contracts/bho_psp34/Cargo.toml"]
-}
