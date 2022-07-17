@@ -1,7 +1,7 @@
 [package]
-name = "bho_psp22"
+name = "bho_common"
 version = "1.0.0"
-authors = ["BHONetwork <daniel.lam@bho.network>"]
+authors = ["BHONetwork <@bho.network>"]
 edition = "2021"
 
 [dependencies]
@@ -16,12 +16,15 @@ ink_engine = { version = "~3.3.0", default-features = false, optional = true }
 scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
 scale-info = { version = "2", default-features = false, features = ["derive"], optional = true }
 
-openbrush = { version = "2.1", default-features = false, features = ["psp22"] }
+# These dependencies
+openbrush = { version = "2.1", default-features = false, features = ["psp34"] }
 
 [lib]
-name = "psp22"
-path = "lib.rs"
-crate-type = ["cdylib"]
+name = "bho_common"
+path = "src/lib.rs"
+crate-type = [
+    "rlib",
+]
 
 [features]
 default = ["std"]
@@ -40,8 +43,5 @@ std = [
     "openbrush/std",
 ]
 
-[profile.dev]
-codegen-units = 16
-
-[profile.release]
-overflow-checks = false
+bsp34 = []
+bsp22 = []
