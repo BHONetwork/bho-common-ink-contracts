@@ -4,21 +4,29 @@ extern crate alloc;
 
 #[openbrush::contract]
 pub mod bho_psp34 {
-    use ink_lang::codegen::{EmitEvent, Env};
-    use ink_prelude::{string::String, vec::Vec};
+    use ink_lang::codegen::{
+        EmitEvent,
+        Env,
+    };
+    use ink_prelude::vec::Vec;
     use ink_storage::traits::SpreadAllocate;
-    use openbrush::contracts::psp34::extensions::{burnable::*, metadata::*, mintable::*};
+    use openbrush::contracts::psp34::extensions::{
+        burnable::*,
+        metadata::*,
+        mintable::*,
+    };
 
     #[derive(Default, SpreadAllocate, PSP34Storage, PSP34MetadataStorage)]
     #[ink(storage)]
     pub struct BPSP34 {
         #[PSP34StorageField]
         psp34: PSP34Data,
-        next_id: u8,
+        next_id: u128,
         #[PSP34MetadataStorageField]
         psp_metadata: PSP34MetadataData,
     }
 
+    /// Event emitted when a token transfer occurs.
     #[ink(event)]
     pub struct Transfer {
         #[ink(topic)]
@@ -29,20 +37,21 @@ pub mod bho_psp34 {
         id: Id,
     }
 
+    /// Event emitted when a token approve occurs.
     #[ink(event)]
     pub struct Approval {
         #[ink(topic)]
-        from: AccountId,
+        owner: AccountId,
         #[ink(topic)]
-        to: AccountId,
+        operator: AccountId,
         #[ink(topic)]
         id: Option<Id>,
         approved: bool,
     }
 
+    /// Event emitted when an attribute is set for a token.
     #[ink(event)]
     pub struct AttributeSet {
-        #[ink(topic)]
         id: Id,
         key: Vec<u8>,
         data: Vec<u8>,
@@ -61,8 +70,13 @@ pub mod bho_psp34 {
             self.env().emit_event(Transfer { from, to, id })
         }
 
-        fn _emit_approval_event(&self, from: AccountId, to: AccountId, id: Option<Id>, approved: bool) {
-            self.env().emit_event(Approval { from, to, id, approved })
+        fn _emit_approval_event(&self, owner: AccountId, operator: AccountId, id: Option<Id>, approved: bool) {
+            self.env().emit_event(Approval {
+                owner,
+                operator,
+                id,
+                approved,
+            })
         }
 
         fn _emit_attribute_set_event(&self, id: Id, key: Vec<u8>, data: Vec<u8>) {
@@ -72,20 +86,22 @@ pub mod bho_psp34 {
 
     impl BPSP34 {
         #[ink(constructor)]
-        pub fn new(metadata: Vec<u8>) -> Self {
+        pub fn new(attrs: Vec<(Vec<u8>, Vec<u8>)>) -> Self {
             ink_lang::codegen::initialize_contract(|instance: &mut Self| {
                 let collection_id = instance.collection_id();
-                let data: Vec<u8> = String::from("metadata").into_bytes();
-                instance._set_attribute(collection_id, data, metadata);
+                for (key, data) in attrs {
+                    instance._set_attribute(collection_id.clone(), key, data);
+                }
             })
         }
 
         #[ink(message)]
-        pub fn mint(&mut self, account: AccountId, metadata: Vec<u8>) -> Result<(), PSP34Error> {
-            let id: Id = Id::U8(self.next_id);
+        pub fn mint(&mut self, account: AccountId, attrs: Vec<(Vec<u8>, Vec<u8>)>) -> Result<(), PSP34Error> {
+            let id: Id = Id::U128(self.next_id);
             self._mint_to(account, id.clone())?;
-            let data: Vec<u8> = String::from("metadata").into_bytes();
-            self._set_attribute(id.clone(), data, metadata.clone());
+            for (key, data) in attrs {
+                self._set_attribute(id.clone(), key, data);
+            }
             self.next_id += 1;
             Ok(())
         }
