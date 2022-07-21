@@ -1,8 +1,8 @@
 {
   "source": {
-    "hash": "0x69eed775aeceb824aaf8ed51dec2ba31de409573c5bd9b4820b4a995af42b536",
+    "hash": "0xcb417341daa89890fae9535feab0ad27ff81a25fa8421e0e9a82dceb2c3aacf3",
     "language": "ink! 3.3.0",
-    "compiler": "rustc 1.62.0-nightly"
+    "compiler": "rustc 1.63.0-nightly"
   },
   "contract": {
     "name": "bsp34_contract",
@@ -44,7 +44,7 @@
                 "displayName": [
                   "Option"
                 ],
-                "type": 27
+                "type": 31
               }
             },
             {
@@ -55,7 +55,7 @@
                 "displayName": [
                   "Option"
                 ],
-                "type": 27
+                "type": 31
               }
             },
             {
@@ -118,7 +118,7 @@
                 "displayName": [
                   "bool"
                 ],
-                "type": 28
+                "type": 27
               }
             }
           ],
@@ -222,34 +222,6 @@
         {
           "args": [
             {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "OwnerOfInput1"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [
-            " Returns the owner of the token if any."
-          ],
-          "label": "PSP34::owner_of",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "OwnerOfOutput"
-            ],
-            "type": 27
-          },
-          "selector": "0x1168624d"
-        },
-        {
-          "args": [
-            {
               "label": "owner",
               "type": {
                 "displayName": [
@@ -292,9 +264,66 @@
               "psp34_external",
               "AllowanceOutput"
             ],
-            "type": 28
+            "type": 27
           },
           "selector": "0x4790f55a"
+        },
+        {
+          "args": [
+            {
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "ApproveInput1"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "ApproveInput2"
+                ],
+                "type": 14
+              }
+            },
+            {
+              "label": "approved",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "ApproveInput3"
+                ],
+                "type": 27
+              }
+            }
+          ],
+          "docs": [
+            " Approves `operator` to withdraw the `id` token from the caller's account.",
+            " If `id` is `None` approves or disapproves the operator for all tokens of the caller.",
+            "",
+            " On success a `Approval` event is emitted.",
+            "",
+            " # Errors",
+            "",
+            " Returns `SelfApprove` error if it is self approve.",
+            "",
+            " Returns `NotApproved` error if caller is not owner of `id`."
+          ],
+          "label": "PSP34::approve",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "ApproveOutput"
+            ],
+            "type": 28
+          },
+          "selector": "0x1932a8b0"
         },
         {
           "args": [
@@ -350,7 +379,7 @@
               "psp34_external",
               "TransferOutput"
             ],
-            "type": 29
+            "type": 28
           },
           "selector": "0x3128d61b"
         },
@@ -374,100 +403,30 @@
         {
           "args": [
             {
-              "label": "operator",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "ApproveInput1"
-                ],
-                "type": 8
-              }
-            },
-            {
               "label": "id",
               "type": {
                 "displayName": [
                   "psp34_external",
-                  "ApproveInput2"
-                ],
-                "type": 14
-              }
-            },
-            {
-              "label": "approved",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "ApproveInput3"
-                ],
-                "type": 28
-              }
-            }
-          ],
-          "docs": [
-            " Approves `operator` to withdraw the `id` token from the caller's account.",
-            " If `id` is `None` approves or disapproves the operator for all tokens of the caller.",
-            "",
-            " On success a `Approval` event is emitted.",
-            "",
-            " # Errors",
-            "",
-            " Returns `SelfApprove` error if it is self approve.",
-            "",
-            " Returns `NotApproved` error if caller is not owner of `id`."
-          ],
-          "label": "PSP34::approve",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "ApproveOutput"
-            ],
-            "type": 29
-          },
-          "selector": "0x1932a8b0"
-        },
-        {
-          "args": [
-            {
-              "label": "account",
-              "type": {
-                "displayName": [
-                  "psp34burnable_external",
-                  "BurnInput1"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "psp34burnable_external",
-                  "BurnInput2"
+                  "OwnerOfInput1"
                 ],
                 "type": 1
               }
             }
           ],
           "docs": [
-            " Destroys token with id equal to `id` from `account`",
-            "",
-            " Caller must be approved to transfer tokens from `account`",
-            " or to transfer token with `id`"
+            " Returns the owner of the token if any."
           ],
-          "label": "PSP34Burnable::burn",
-          "mutates": true,
+          "label": "PSP34::owner_of",
+          "mutates": false,
           "payable": false,
           "returnType": {
             "displayName": [
-              "psp34burnable_external",
-              "BurnOutput"
+              "psp34_external",
+              "OwnerOfOutput"
             ],
-            "type": 29
+            "type": 31
           },
-          "selector": "0x63c9877a"
+          "selector": "0x1168624d"
         },
         {
           "args": [
@@ -515,7 +474,7 @@
               "label": "account",
               "type": {
                 "displayName": [
-                  "bsp34mintable_external",
+                  "bsp34_external",
                   "MintInput1"
                 ],
                 "type": 8
@@ -525,7 +484,7 @@
               "label": "attrs",
               "type": {
                 "displayName": [
-                  "bsp34mintable_external",
+                  "bsp34_external",
                   "MintInput2"
                 ],
                 "type": 25
@@ -533,17 +492,53 @@
             }
           ],
           "docs": [],
-          "label": "BSP34Mintable::mint",
+          "label": "BSP34::mint",
           "mutates": true,
           "payable": false,
           "returnType": {
             "displayName": [
-              "bsp34mintable_external",
+              "bsp34_external",
               "MintOutput"
             ],
             "type": 33
           },
-          "selector": "0xaca89006"
+          "selector": "0xe6dee0dc"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "bsp34_external",
+                  "BurnInput1"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "bsp34_external",
+                  "BurnInput2"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "BSP34::burn",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bsp34_external",
+              "BurnOutput"
+            ],
+            "type": 28
+          },
+          "selector": "0xed740fbd"
         }
       ]
     },
@@ -1138,6 +1133,118 @@
         "id": 27,
         "type": {
           "def": {
+            "primitive": "bool"
+          }
+        }
+      },
+      {
+        "id": 28,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 15
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 29
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 15
+            },
+            {
+              "name": "E",
+              "type": 29
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 29,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 30,
+                      "typeName": "String"
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Custom"
+                },
+                {
+                  "index": 1,
+                  "name": "SelfApprove"
+                },
+                {
+                  "index": 2,
+                  "name": "NotApproved"
+                },
+                {
+                  "index": 3,
+                  "name": "TokenExists"
+                },
+                {
+                  "index": 4,
+                  "name": "TokenNotExists"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 30,
+                      "typeName": "String"
+                    }
+                  ],
+                  "index": 5,
+                  "name": "SafeTransferCheckFailed"
+                }
+              ]
+            }
+          },
+          "path": [
+            "openbrush_contracts",
+            "traits",
+            "errors",
+            "psp34",
+            "PSP34Error"
+          ]
+        }
+      },
+      {
+        "id": 30,
+        "type": {
+          "def": {
+            "primitive": "str"
+          }
+        }
+      },
+      {
+        "id": 31,
+        "type": {
+          "def": {
             "variant": {
               "variants": [
                 {
@@ -1165,118 +1272,6 @@
           "path": [
             "Option"
           ]
-        }
-      },
-      {
-        "id": 28,
-        "type": {
-          "def": {
-            "primitive": "bool"
-          }
-        }
-      },
-      {
-        "id": 29,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "fields": [
-                    {
-                      "type": 15
-                    }
-                  ],
-                  "index": 0,
-                  "name": "Ok"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 30
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Err"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 15
-            },
-            {
-              "name": "E",
-              "type": 30
-            }
-          ],
-          "path": [
-            "Result"
-          ]
-        }
-      },
-      {
-        "id": 30,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "fields": [
-                    {
-                      "type": 31,
-                      "typeName": "String"
-                    }
-                  ],
-                  "index": 0,
-                  "name": "Custom"
-                },
-                {
-                  "index": 1,
-                  "name": "SelfApprove"
-                },
-                {
-                  "index": 2,
-                  "name": "NotApproved"
-                },
-                {
-                  "index": 3,
-                  "name": "TokenExists"
-                },
-                {
-                  "index": 4,
-                  "name": "TokenNotExists"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 31,
-                      "typeName": "String"
-                    }
-                  ],
-                  "index": 5,
-                  "name": "SafeTransferCheckFailed"
-                }
-              ]
-            }
-          },
-          "path": [
-            "openbrush_contracts",
-            "traits",
-            "errors",
-            "psp34",
-            "PSP34Error"
-          ]
-        }
-      },
-      {
-        "id": 31,
-        "type": {
-          "def": {
-            "primitive": "str"
-          }
         }
       },
       {
@@ -1330,7 +1325,7 @@
                 {
                   "fields": [
                     {
-                      "type": 30
+                      "type": 29
                     }
                   ],
                   "index": 1,
@@ -1346,7 +1341,7 @@
             },
             {
               "name": "E",
-              "type": 30
+              "type": 29
             }
           ],
           "path": [

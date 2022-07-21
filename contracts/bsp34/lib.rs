@@ -4,11 +4,17 @@ extern crate alloc;
 
 #[openbrush::contract]
 pub mod bsp34_contract {
-    use bho_common::traits::bsp34::extensions::mintable::*;
-    use ink_lang::codegen::{EmitEvent, Env};
+    use bho_common::traits::bsp34::*;
+    use ink_lang::codegen::{
+        EmitEvent,
+        Env,
+    };
     use ink_prelude::vec::Vec;
     use ink_storage::traits::SpreadAllocate;
-    use openbrush::contracts::psp34::extensions::{burnable::*, metadata::*};
+    use openbrush::contracts::psp34::extensions::{
+        burnable::*,
+        metadata::*,
+    };
 
     #[derive(Default, SpreadAllocate, PSP34Storage, PSP34MetadataStorage)]
     #[ink(storage)]
@@ -53,8 +59,6 @@ pub mod bsp34_contract {
 
     impl PSP34 for BSP34Contract {}
 
-    impl PSP34Burnable for BSP34Contract {}
-
     impl PSP34Metadata for BSP34Contract {}
 
     impl PSP34Internal for BSP34Contract {
@@ -76,7 +80,7 @@ pub mod bsp34_contract {
         }
     }
 
-    impl BSP34Mintable for BSP34Contract {
+    impl BSP34 for BSP34Contract {
         #[ink(message)]
         fn mint(&mut self, account: AccountId, attrs: Vec<(Vec<u8>, Vec<u8>)>) -> Result<Id, PSP34Error> {
             let id: Id = Id::U128(self.next_id);
@@ -86,6 +90,11 @@ pub mod bsp34_contract {
             }
             self.next_id += 1;
             Ok(id)
+        }
+
+        #[ink(message)]
+        fn burn(&mut self, account: AccountId, id: Id) -> Result<(), PSP34Error> {
+            self._burn_from(account, id)
         }
     }
 
