@@ -5,16 +5,10 @@ extern crate alloc;
 #[openbrush::contract]
 pub mod bsp34_contract {
     use bho_common::traits::bsp34::extensions::mintable::*;
-    use ink_lang::codegen::{
-        EmitEvent,
-        Env,
-    };
+    use ink_lang::codegen::{EmitEvent, Env};
     use ink_prelude::vec::Vec;
     use ink_storage::traits::SpreadAllocate;
-    use openbrush::contracts::psp34::extensions::{
-        burnable::*,
-        metadata::*,
-    };
+    use openbrush::contracts::psp34::extensions::{burnable::*, metadata::*};
 
     #[derive(Default, SpreadAllocate, PSP34Storage, PSP34MetadataStorage)]
     #[ink(storage)]
@@ -58,6 +52,8 @@ pub mod bsp34_contract {
     }
 
     impl PSP34 for BSP34Contract {}
+
+    impl PSP34Burnable for BSP34Contract {}
 
     impl PSP34Metadata for BSP34Contract {}
 
