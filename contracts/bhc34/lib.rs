@@ -3,8 +3,8 @@
 extern crate alloc;
 
 #[openbrush::contract]
-pub mod bsp34_contract {
-    use bho_common::traits::bsp34::*;
+pub mod bhc34_contract {
+    use bho_common::traits::bhc34::*;
     use ink_lang::codegen::{
         EmitEvent,
         Env,
@@ -18,7 +18,7 @@ pub mod bsp34_contract {
 
     #[derive(Default, SpreadAllocate, PSP34Storage, PSP34MetadataStorage)]
     #[ink(storage)]
-    pub struct BSP34Contract {
+    pub struct BHC34Contract {
         #[PSP34StorageField]
         psp34: PSP34Data,
         next_id: u128,
@@ -57,11 +57,11 @@ pub mod bsp34_contract {
         data: Vec<u8>,
     }
 
-    impl PSP34 for BSP34Contract {}
+    impl PSP34 for BHC34Contract {}
 
-    impl PSP34Metadata for BSP34Contract {}
+    impl PSP34Metadata for BHC34Contract {}
 
-    impl PSP34Internal for BSP34Contract {
+    impl PSP34Internal for BHC34Contract {
         fn _emit_transfer_event(&self, from: Option<AccountId>, to: Option<AccountId>, id: Id) {
             self.env().emit_event(Transfer { from, to, id })
         }
@@ -80,7 +80,7 @@ pub mod bsp34_contract {
         }
     }
 
-    impl BSP34 for BSP34Contract {
+    impl BHC34 for BHC34Contract {
         #[ink(message)]
         fn mint(&mut self, account: AccountId, attrs: Vec<(Vec<u8>, Vec<u8>)>) -> Result<Id, PSP34Error> {
             let id: Id = Id::U128(self.next_id);
@@ -98,7 +98,7 @@ pub mod bsp34_contract {
         }
     }
 
-    impl BSP34Contract {
+    impl BHC34Contract {
         #[ink(constructor)]
         pub fn new(attrs: Vec<(Vec<u8>, Vec<u8>)>) -> Self {
             ink_lang::codegen::initialize_contract(|instance: &mut Self| {

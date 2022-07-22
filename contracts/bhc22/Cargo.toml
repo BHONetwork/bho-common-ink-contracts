@@ -1,5 +1,5 @@
 [package]
-name = "bsp34_contract"
+name = "bhc22_contract"
 version = "1.0.0"
 authors = ["BHONetwork <@bho.network>"]
 edition = "2021"
@@ -16,17 +16,12 @@ ink_engine = { version = "~3.3.0", default-features = false, optional = true }
 scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
 scale-info = { version = "2", default-features = false, features = ["derive"], optional = true }
 
-# These dependencies
-openbrush = { version = "2.1", default-features = false, features = ["psp34"] }
-bho_common = { default-features = false, path = "../../common" }
+openbrush = { version = "2.1", default-features = false, features = ["psp22"] }
 
 [lib]
-name = "bsp34_contract"
+name = "bhc22_contract"
 path = "lib.rs"
-crate-type = [
-    # Used for normal contract Wasm blobs.
-    "cdylib",
-]
+crate-type = ["cdylib"]
 
 [features]
 default = ["std"]
@@ -43,9 +38,7 @@ std = [
 
     # These dependencies
     "openbrush/std",
-    "bho_common/std",
 ]
-ink-as-dependency = []
 
 [profile.dev]
 codegen-units = 16

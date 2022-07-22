@@ -6,10 +6,10 @@ use openbrush::contracts::psp34::{
 };
 
 #[openbrush::wrapper]
-pub type BSP34Ref = dyn BSP34 + PSP34 + PSP34Metadata;
+pub type BHC34Ref = dyn BHC34 + PSP34 + PSP34Metadata;
 
 #[openbrush::trait_definition]
-pub trait BSP34 {
+pub trait BHC34 {
     #[ink(message)]
     fn mint(&mut self, account: AccountId, attrs: Vec<(Vec<u8>, Vec<u8>)>) -> Result<Id, PSP34Error>;
 

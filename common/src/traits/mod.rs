@@ -1,1 +1,1 @@
-pub mod bsp34;
+pub mod bhc34;
