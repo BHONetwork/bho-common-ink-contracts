@@ -94,6 +94,11 @@ pub mod bhc34_contract {
 
         #[ink(message)]
         fn burn(&mut self, account: AccountId, id: Id) -> Result<(), PSP34Error> {
+            let owner = self._check_token_exists(&id)?;
+            let caller = self.env().caller();
+            if owner != caller && !self._allowance(&owner, &caller, &Some(&id)) {
+                return Err(PSP34Error::NotApproved)
+            }
             self._burn_from(account, id)
         }
     }
