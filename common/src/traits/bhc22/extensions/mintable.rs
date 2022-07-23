@@ -1,5 +1,10 @@
-use openbrush::contracts::psp22::extensions::mintable::*;
-use openbrush::traits::{AccountId, Balance};
+use openbrush::{
+    contracts::psp22::extensions::mintable::*,
+    traits::{
+        AccountId,
+        Balance,
+    },
+};
 
 #[openbrush::wrapper]
 pub type BHC22MintableRef = dyn BHC22Mintable;

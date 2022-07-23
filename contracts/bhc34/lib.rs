@@ -5,10 +5,16 @@ extern crate alloc;
 #[openbrush::contract]
 pub mod bhc34_contract {
     use bho_common::traits::bhc34::*;
-    use ink_lang::codegen::{EmitEvent, Env};
+    use ink_lang::codegen::{
+        EmitEvent,
+        Env,
+    };
     use ink_prelude::vec::Vec;
     use ink_storage::traits::SpreadAllocate;
-    use openbrush::contracts::psp34::extensions::{burnable::*, metadata::*};
+    use openbrush::contracts::psp34::extensions::{
+        burnable::*,
+        metadata::*,
+    };
 
     #[derive(Default, SpreadAllocate, PSP34Storage, PSP34MetadataStorage)]
     #[ink(storage)]
@@ -91,7 +97,7 @@ pub mod bhc34_contract {
             let owner = self._check_token_exists(&id)?;
             let caller = self.env().caller();
             if owner != caller && !self._allowance(&owner, &caller, &Some(&id)) {
-                return Err(PSP34Error::NotApproved);
+                return Err(PSP34Error::NotApproved)
             }
             self._burn_from(account, id)
         }

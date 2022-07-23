@@ -3,12 +3,21 @@
 
 #[openbrush::contract]
 pub mod bhc22_contract {
-    use bho_common::traits::bhc22::extensions::{burnable::*, mintable::*};
-    use ink_lang::codegen::{EmitEvent, Env};
+    use bho_common::traits::bhc22::extensions::{
+        burnable::*,
+        mintable::*,
+    };
+    use ink_lang::codegen::{
+        EmitEvent,
+        Env,
+    };
     use ink_prelude::string::String;
     use ink_storage::traits::SpreadAllocate;
     use openbrush::{
-        contracts::{ownable::*, psp22::extensions::metadata::*},
+        contracts::{
+            ownable::*,
+            psp22::extensions::metadata::*,
+        },
         modifiers,
     };
 
@@ -87,14 +96,17 @@ pub mod bhc22_contract {
         }
     }
 
-    impl BHC22Burnalbe for BHC22Contract {
+    impl BHC22Burnable for BHC22Contract {
         #[ink(message)]
         fn burn(&mut self, account: AccountId, amount: Balance) -> Result<(), PSP22Error> {
-            let owner = self.owner();
             let caller = self.env().caller();
-            let allowance = self.allowance(owner, caller);
-            if allowance < amount {
-                return Err(PSP22Error::InsufficientAllowance);
+            if caller != account {
+                // "Burn from" case
+                let allowance = self.allowance(account, caller);
+                if allowance < amount {
+                    return Err(PSP22Error::InsufficientAllowance)
+                }
+                self._approve_from_to(account, caller, allowance - amount)?;
             }
             self._burn_from(account, amount)
         }
