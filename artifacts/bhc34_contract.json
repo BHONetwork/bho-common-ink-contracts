@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x3dc97e3a5e1b19fd41cac9de9ef8e644853de7d731b2f99da5e0fa611ff2fcc8",
+    "hash": "0x415a513455c73f892562bec6fb9c55ad7bc6d372eadd94b2eb8493d78f80908f",
     "language": "ink! 3.3.0",
     "compiler": "rustc 1.63.0-nightly"
   },
@@ -118,7 +118,7 @@
                 "displayName": [
                   "bool"
                 ],
-                "type": 31
+                "type": 28
               }
             }
           ],
@@ -173,23 +173,6 @@
         {
           "args": [],
           "docs": [
-            " Returns current NFT total supply."
-          ],
-          "label": "PSP34::total_supply",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "TotalSupplyOutput"
-            ],
-            "type": 6
-          },
-          "selector": "0x628413fe"
-        },
-        {
-          "args": [],
-          "docs": [
             " Returns the collection `Id` of the NFT token.",
             "",
             " This can represents the relationship between tokens/contracts/pallets."
@@ -205,6 +188,36 @@
             "type": 1
           },
           "selector": "0xffa27a5f"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "BalanceOfInput1"
+                ],
+                "type": 8
+              }
+            }
+          ],
+          "docs": [
+            " Returns the balance of the owner.",
+            "",
+            " This represents the amount of unique tokens the owner has."
+          ],
+          "label": "PSP34::balance_of",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "BalanceOfOutput"
+            ],
+            "type": 4
+          },
+          "selector": "0xcde7e55f"
         },
         {
           "args": [
@@ -233,6 +246,55 @@
             "type": 27
           },
           "selector": "0x1168624d"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "AllowanceInput1"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "operator",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "AllowanceInput2"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "psp34_external",
+                  "AllowanceInput3"
+                ],
+                "type": 14
+              }
+            }
+          ],
+          "docs": [
+            " Returns `true` if the operator is approved by the owner to withdraw `id` token.",
+            " If `id` is `None`, returns `true` if the operator is approved to withdraw all owner's tokens."
+          ],
+          "label": "PSP34::allowance",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "AllowanceOutput"
+            ],
+            "type": 28
+          },
+          "selector": "0x4790f55a"
         },
         {
           "args": [
@@ -288,88 +350,9 @@
               "psp34_external",
               "TransferOutput"
             ],
-            "type": 28
+            "type": 29
           },
           "selector": "0x3128d61b"
-        },
-        {
-          "args": [
-            {
-              "label": "owner",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "BalanceOfInput1"
-                ],
-                "type": 8
-              }
-            }
-          ],
-          "docs": [
-            " Returns the balance of the owner.",
-            "",
-            " This represents the amount of unique tokens the owner has."
-          ],
-          "label": "PSP34::balance_of",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "BalanceOfOutput"
-            ],
-            "type": 4
-          },
-          "selector": "0xcde7e55f"
-        },
-        {
-          "args": [
-            {
-              "label": "owner",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "AllowanceInput1"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "operator",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "AllowanceInput2"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "psp34_external",
-                  "AllowanceInput3"
-                ],
-                "type": 14
-              }
-            }
-          ],
-          "docs": [
-            " Returns `true` if the operator is approved by the owner to withdraw `id` token.",
-            " If `id` is `None`, returns `true` if the operator is approved to withdraw all owner's tokens."
-          ],
-          "label": "PSP34::allowance",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp34_external",
-              "AllowanceOutput"
-            ],
-            "type": 31
-          },
-          "selector": "0x4790f55a"
         },
         {
           "args": [
@@ -400,7 +383,7 @@
                   "psp34_external",
                   "ApproveInput3"
                 ],
-                "type": 31
+                "type": 28
               }
             }
           ],
@@ -424,9 +407,26 @@
               "psp34_external",
               "ApproveOutput"
             ],
-            "type": 28
+            "type": 29
           },
           "selector": "0x1932a8b0"
+        },
+        {
+          "args": [],
+          "docs": [
+            " Returns current NFT total supply."
+          ],
+          "label": "PSP34::total_supply",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp34_external",
+              "TotalSupplyOutput"
+            ],
+            "type": 6
+          },
+          "selector": "0x628413fe"
         },
         {
           "args": [
@@ -475,6 +475,42 @@
               "type": {
                 "displayName": [
                   "bhc34_external",
+                  "BurnInput1"
+                ],
+                "type": 8
+              }
+            },
+            {
+              "label": "id",
+              "type": {
+                "displayName": [
+                  "bhc34_external",
+                  "BurnInput2"
+                ],
+                "type": 1
+              }
+            }
+          ],
+          "docs": [],
+          "label": "BHC34::burn",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "bhc34_external",
+              "BurnOutput"
+            ],
+            "type": 29
+          },
+          "selector": "0x2b11f861"
+        },
+        {
+          "args": [
+            {
+              "label": "account",
+              "type": {
+                "displayName": [
+                  "bhc34_external",
                   "MintInput1"
                 ],
                 "type": 8
@@ -503,42 +539,6 @@
             "type": 33
           },
           "selector": "0x86e2891c"
-        },
-        {
-          "args": [
-            {
-              "label": "account",
-              "type": {
-                "displayName": [
-                  "bhc34_external",
-                  "BurnInput1"
-                ],
-                "type": 8
-              }
-            },
-            {
-              "label": "id",
-              "type": {
-                "displayName": [
-                  "bhc34_external",
-                  "BurnInput2"
-                ],
-                "type": 1
-              }
-            }
-          ],
-          "docs": [],
-          "label": "BHC34::burn",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "bhc34_external",
-              "BurnOutput"
-            ],
-            "type": 28
-          },
-          "selector": "0x2b11f861"
         }
       ]
     },
@@ -1166,6 +1166,14 @@
         "id": 28,
         "type": {
           "def": {
+            "primitive": "bool"
+          }
+        }
+      },
+      {
+        "id": 29,
+        "type": {
+          "def": {
             "variant": {
               "variants": [
                 {
@@ -1180,7 +1188,7 @@
                 {
                   "fields": [
                     {
-                      "type": 29
+                      "type": 30
                     }
                   ],
                   "index": 1,
@@ -1196,7 +1204,7 @@
             },
             {
               "name": "E",
-              "type": 29
+              "type": 30
             }
           ],
           "path": [
@@ -1205,7 +1213,7 @@
         }
       },
       {
-        "id": 29,
+        "id": 30,
         "type": {
           "def": {
             "variant": {
@@ -1213,7 +1221,7 @@
                 {
                   "fields": [
                     {
-                      "type": 30,
+                      "type": 31,
                       "typeName": "String"
                     }
                   ],
@@ -1239,7 +1247,7 @@
                 {
                   "fields": [
                     {
-                      "type": 30,
+                      "type": 31,
                       "typeName": "String"
                     }
                   ],
@@ -1259,18 +1267,10 @@
         }
       },
       {
-        "id": 30,
-        "type": {
-          "def": {
-            "primitive": "str"
-          }
-        }
-      },
-      {
         "id": 31,
         "type": {
           "def": {
-            "primitive": "bool"
+            "primitive": "str"
           }
         }
       },
@@ -1325,7 +1325,7 @@
                 {
                   "fields": [
                     {
-                      "type": 29
+                      "type": 30
                     }
                   ],
                   "index": 1,
@@ -1341,7 +1341,7 @@
             },
             {
               "name": "E",
-              "type": 29
+              "type": 30
             }
           ],
           "path": [

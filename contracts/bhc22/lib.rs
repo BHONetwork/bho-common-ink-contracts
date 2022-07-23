@@ -11,7 +11,10 @@ pub mod bhc22_contract {
         EmitEvent,
         Env,
     };
-    use ink_prelude::string::String;
+    use ink_prelude::{
+        string::String,
+        vec::Vec,
+    };
     use ink_storage::traits::SpreadAllocate;
     use openbrush::{
         contracts::{
@@ -77,14 +80,37 @@ pub mod bhc22_contract {
         #[ink(constructor)]
         pub fn new(name: Option<String>, symbol: Option<String>, decimals: u8, initial_supply: Balance) -> Self {
             ink_lang::utils::initialize_contract(|instance: &mut Self| {
-                instance.psp22_metadata.name = name;
-                instance.psp22_metadata.symbol = symbol;
-                instance.psp22_metadata.decimals = decimals;
+                instance._init_with_metadata(name, symbol, decimals);
                 instance
                     ._mint(instance.env().caller(), initial_supply)
                     .expect("Failed to mint initial supply");
-                instance._init_with_owner(instance.env().caller())
+                instance._init_with_owner(instance.env().caller());
             })
+        }
+
+        #[ink(constructor)]
+        pub fn new_with_owner_and_endowments(
+            name: Option<String>,
+            symbol: Option<String>,
+            decimals: u8,
+            owner: AccountId,
+            endowments: Vec<(AccountId, Balance)>,
+        ) -> Self {
+            ink_lang::utils::initialize_contract(|instance: &mut Self| {
+                instance._init_with_metadata(name, symbol, decimals);
+                for endowment in endowments {
+                    instance
+                        ._mint(endowment.0, endowment.1)
+                        .expect("Failed to mint initial endowment");
+                }
+                instance._init_with_owner(owner);
+            })
+        }
+
+        fn _init_with_metadata(&mut self, name: Option<String>, symbol: Option<String>, decimals: u8) {
+            self.psp22_metadata.name = name;
+            self.psp22_metadata.symbol = symbol;
+            self.psp22_metadata.decimals = decimals;
         }
     }
 

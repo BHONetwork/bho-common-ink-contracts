@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0x2b581f5ac6656aaed0bde24b85874de04a29d59d056989d07b2b49b060a2b865",
+    "hash": "0x68567cb1a2018642b49300d0c4aba76e3d9fc558fa85f80bfddf40a48d8126cd",
     "language": "ink! 3.3.0",
     "compiler": "rustc 1.63.0-nightly"
   },
@@ -57,6 +57,59 @@
           "label": "new",
           "payable": false,
           "selector": "0x9bae9d5e"
+        },
+        {
+          "args": [
+            {
+              "label": "name",
+              "type": {
+                "displayName": [
+                  "Option"
+                ],
+                "type": 13
+              }
+            },
+            {
+              "label": "symbol",
+              "type": {
+                "displayName": [
+                  "Option"
+                ],
+                "type": 13
+              }
+            },
+            {
+              "label": "decimals",
+              "type": {
+                "displayName": [
+                  "u8"
+                ],
+                "type": 4
+              }
+            },
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "AccountId"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "endowments",
+              "type": {
+                "displayName": [
+                  "Vec"
+                ],
+                "type": 5
+              }
+            }
+          ],
+          "docs": [],
+          "label": "new_with_owner_and_endowments",
+          "payable": false,
+          "selector": "0xf7f0746b"
         }
       ],
       "docs": [],
@@ -252,46 +305,6 @@
         {
           "args": [
             {
-              "label": "owner",
-              "type": {
-                "displayName": [
-                  "psp22_external",
-                  "AllowanceInput1"
-                ],
-                "type": 2
-              }
-            },
-            {
-              "label": "spender",
-              "type": {
-                "displayName": [
-                  "psp22_external",
-                  "AllowanceInput2"
-                ],
-                "type": 2
-              }
-            }
-          ],
-          "docs": [
-            " Returns the amount which `spender` is still allowed to withdraw from `owner`.",
-            "",
-            " Returns `0` if no allowance has been set `0`."
-          ],
-          "label": "PSP22::allowance",
-          "mutates": false,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp22_external",
-              "AllowanceOutput"
-            ],
-            "type": 0
-          },
-          "selector": "0x4d47d921"
-        },
-        {
-          "args": [
-            {
               "label": "spender",
               "type": {
                 "displayName": [
@@ -358,6 +371,141 @@
         {
           "args": [
             {
+              "label": "spender",
+              "type": {
+                "displayName": [
+                  "psp22_external",
+                  "IncreaseAllowanceInput1"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "delta_value",
+              "type": {
+                "displayName": [
+                  "psp22_external",
+                  "IncreaseAllowanceInput2"
+                ],
+                "type": 0
+              }
+            }
+          ],
+          "docs": [
+            " Atomically increases the allowance granted to `spender` by the caller.",
+            "",
+            " An `Approval` event is emitted.",
+            "",
+            " # Errors",
+            "",
+            " Returns `ZeroSenderAddress` error if sender's address is zero.",
+            "",
+            " Returns `ZeroRecipientAddress` error if recipient's address is zero."
+          ],
+          "label": "PSP22::increase_allowance",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp22_external",
+              "IncreaseAllowanceOutput"
+            ],
+            "type": 15
+          },
+          "selector": "0x96d6b57a"
+        },
+        {
+          "args": [
+            {
+              "label": "spender",
+              "type": {
+                "displayName": [
+                  "psp22_external",
+                  "ApproveInput1"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "value",
+              "type": {
+                "displayName": [
+                  "psp22_external",
+                  "ApproveInput2"
+                ],
+                "type": 0
+              }
+            }
+          ],
+          "docs": [
+            " Allows `spender` to withdraw from the caller's account multiple times, up to",
+            " the `value` amount.",
+            "",
+            " If this function is called again it overwrites the current allowance with `value`.",
+            "",
+            " An `Approval` event is emitted.",
+            "",
+            " # Errors",
+            "",
+            " Returns `ZeroSenderAddress` error if sender's address is zero.",
+            "",
+            " Returns `ZeroRecipientAddress` error if recipient's address is zero."
+          ],
+          "label": "PSP22::approve",
+          "mutates": true,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp22_external",
+              "ApproveOutput"
+            ],
+            "type": 15
+          },
+          "selector": "0xb20f1bbd"
+        },
+        {
+          "args": [
+            {
+              "label": "owner",
+              "type": {
+                "displayName": [
+                  "psp22_external",
+                  "AllowanceInput1"
+                ],
+                "type": 2
+              }
+            },
+            {
+              "label": "spender",
+              "type": {
+                "displayName": [
+                  "psp22_external",
+                  "AllowanceInput2"
+                ],
+                "type": 2
+              }
+            }
+          ],
+          "docs": [
+            " Returns the amount which `spender` is still allowed to withdraw from `owner`.",
+            "",
+            " Returns `0` if no allowance has been set `0`."
+          ],
+          "label": "PSP22::allowance",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "psp22_external",
+              "AllowanceOutput"
+            ],
+            "type": 0
+          },
+          "selector": "0x4d47d921"
+        },
+        {
+          "args": [
+            {
               "label": "to",
               "type": {
                 "displayName": [
@@ -414,101 +562,6 @@
             "type": 15
           },
           "selector": "0xdb20f9f5"
-        },
-        {
-          "args": [
-            {
-              "label": "spender",
-              "type": {
-                "displayName": [
-                  "psp22_external",
-                  "ApproveInput1"
-                ],
-                "type": 2
-              }
-            },
-            {
-              "label": "value",
-              "type": {
-                "displayName": [
-                  "psp22_external",
-                  "ApproveInput2"
-                ],
-                "type": 0
-              }
-            }
-          ],
-          "docs": [
-            " Allows `spender` to withdraw from the caller's account multiple times, up to",
-            " the `value` amount.",
-            "",
-            " If this function is called again it overwrites the current allowance with `value`.",
-            "",
-            " An `Approval` event is emitted.",
-            "",
-            " # Errors",
-            "",
-            " Returns `ZeroSenderAddress` error if sender's address is zero.",
-            "",
-            " Returns `ZeroRecipientAddress` error if recipient's address is zero."
-          ],
-          "label": "PSP22::approve",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp22_external",
-              "ApproveOutput"
-            ],
-            "type": 15
-          },
-          "selector": "0xb20f1bbd"
-        },
-        {
-          "args": [
-            {
-              "label": "spender",
-              "type": {
-                "displayName": [
-                  "psp22_external",
-                  "IncreaseAllowanceInput1"
-                ],
-                "type": 2
-              }
-            },
-            {
-              "label": "delta_value",
-              "type": {
-                "displayName": [
-                  "psp22_external",
-                  "IncreaseAllowanceInput2"
-                ],
-                "type": 0
-              }
-            }
-          ],
-          "docs": [
-            " Atomically increases the allowance granted to `spender` by the caller.",
-            "",
-            " An `Approval` event is emitted.",
-            "",
-            " # Errors",
-            "",
-            " Returns `ZeroSenderAddress` error if sender's address is zero.",
-            "",
-            " Returns `ZeroRecipientAddress` error if recipient's address is zero."
-          ],
-          "label": "PSP22::increase_allowance",
-          "mutates": true,
-          "payable": false,
-          "returnType": {
-            "displayName": [
-              "psp22_external",
-              "IncreaseAllowanceOutput"
-            ],
-            "type": 15
-          },
-          "selector": "0x96d6b57a"
         },
         {
           "args": [
